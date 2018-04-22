@@ -13,7 +13,7 @@
             </router-link>
         </h3>
 
-        <button class="button is-warning" @click="getUsers">Get Users</button>
+        <button class="button is-warning" @click="getPosts">Get All Posts</button>
       </div>
     </div>
   </section>
@@ -32,25 +32,26 @@ export default {
   },
   // With Axios
   methods: {
-    async getUsers() {
+    async getPosts() {
       try {
         const requestPosts = await axios.post('http://localhost:3333/graphql', {
           query: ALL_POSTS_QUERY,
         });
         const resolvePosts = requestPosts.data.data.allPosts;
-        console.log(resolvePosts);
+
+        this.allPosts = resolvePosts;
       } catch (error) {
         console.log('error: ', error);
       }
     },
   },
   // Without Axios
-  apollo: {
-    // fetch all posts
-    allPosts: {
-      query: ALL_POSTS_QUERY,
-    },
-  },
+  // apollo: {
+  //   // fetch all posts
+  //   allPosts: {
+  //     query: ALL_POSTS_QUERY,
+  //   },
+  // },
 };
 </script>
 
