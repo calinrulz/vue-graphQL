@@ -41,6 +41,7 @@ export default {
 
         this.allPosts = resolvePosts;
       } catch (error) {
+        /* eslint-disable */
         console.log('error: ', error);
       }
     },
