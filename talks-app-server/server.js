@@ -1,5 +1,6 @@
 import express from 'express'
 import bodyParser from 'body-parser'
+import cors from 'cors'
 import mongoose from 'mongoose'
 
 import { graphqlExpress, graphiqlExpress } from 'apollo-server-express'
@@ -29,6 +30,25 @@ const schema = makeExecutableSchema({
 const PORT = 3000
 const app = express()
 
+// Cors
+app.use(cors())
+
+const corsOptions = {
+  origin(origin, callback) {
+    callback(null, true)
+  },
+  credentials: true
+}
+app.use(cors(corsOptions))
+const allowCrossDomain = function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+  res.header('Access-Control-Allow-Headers', 'Content-Type,token')
+  next()
+}
+app.use(allowCrossDomain)
+
+// GraphQL
 app.use(
   '/graphql',
   bodyParser.json(),
