@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <el-row>
-      <el-button type="success" round @:click="showTalks">Success</el-button>
+      <el-button type="success" round @click="showTalks">Success</el-button>
 
       <el-card class="box-card">
         <div class="text item">
@@ -14,6 +14,8 @@
 </template>
 
 <script>
+import { ALL_TALKS_QUERY } from '@/graphql';
+
 export default {
   name: 'App',
   data() {
@@ -25,6 +27,12 @@ export default {
     showTalks() {
       /* eslint-disable */
       console.log(this.allTalks);
+    },
+  },
+  apollo: {
+    // fetch all talks
+    allTalks: {
+      query: ALL_TALKS_QUERY,
     },
   },
 };
